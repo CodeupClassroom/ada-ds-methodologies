@@ -1,7 +1,7 @@
-from random import choice
-
 def is_narcissistic(n: int) -> bool:
-    return choice([True, False])
+    digits = [int(n) for n in list(str(n))]
+    n_digits = len(digits)
+    return sum([digit ** n_digits for digit in digits]) == n
 
 if __name__ == '__main__':
     assert is_narcissistic(153)
