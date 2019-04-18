@@ -1,4 +1,3 @@
-from acquire import get_all_data
 import pandas as pd
 
 def parse_sales_date(df):
@@ -31,7 +30,6 @@ def aggregate_by_weekday(df):
     return df.groupby('weekday')[['sale_total', 'quantity']].agg(['median', 'sum'])
 
 def prep_store_data(df):
-    df = get_all_data()
     df = parse_sales_date(df)
     df = add_date_parts(df)
     df = improve_sales_data(df)
