@@ -125,7 +125,7 @@ def get_fitbit_data(cache=True) -> Tuple[pd.DataFrame, pd.DataFrame]:
 
     To force a re-download and re-processing of the data, use cache=False
     '''
-    if not path.exists('Foods.csv') or not path.exists('Activites.csv') or not cache:
+    if not path.exists('Foods.csv') or not path.exists('Activities.csv') or not cache:
         download_data()
         extract_data()
         process_data_and_save_csvs()
