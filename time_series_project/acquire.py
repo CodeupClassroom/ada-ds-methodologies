@@ -1,7 +1,15 @@
 # # Data Acquisition
 #
+# 0. Planning
+# 1. **Data Acquisition** <- You are here
+# 2. Data Preparation
+# 3. Data Exploration
+# 4. Data Modeling
+#
 # This script provides functions for downloading the data from the server and
 # processing it.
+#
+# ## Overview
 #
 # We get the data as a [gzipped](https://en.wikipedia.org/wiki/Gzip) [tar
 # archive](https://en.wikipedia.org/wiki/Tar_(computing)), which means that
@@ -37,12 +45,23 @@ import shutil
 
 import pandas as pd
 
+from datetime import datetime
 from collections import defaultdict
 from typing import NamedTuple, List, Tuple
 from urllib.request import urlretrieve
 from os import path
 
-# A type to represent the sections of the "csv" files that we get from fitbit.
+#
+# ## Implementation
+#
+
+# `log` is a simple little function to help us with out logging output. It will
+# prepend a timestamp and the name of the file to any passed messages.
+def log(msg):
+    print(f'[{datetime.now()} acquire.py] {msg}')
+
+# `Section` is a type to represent the sections of the "csv" files that we get
+# from fitbit.
 Section = NamedTuple('Section', [('title', str),
                                  ('columns', List[str]),
                                  ('data', List[List[str]])])
@@ -65,18 +84,18 @@ def get_sections(fp: str) -> List[Section]:
     '''
     with open(fp) as f:
         contents = f.read().strip()
-    # Sections are separated by empty lines, or '\n\n'
+    # Sections are separated by empty lines, or `\n\n`
     return [process_section(section) for section in contents.split('\n\n')]
 
 def download_data():
     'Download the compressed data from the server'
-    print('Downloading data file...')
+    log('Downloading data file')
     filepath, _ = urlretrieve(DATA_URL)
     shutil.move(filepath, TGZ_FILE_PATH)
 
 def extract_data():
     'Untar and uncompress the data'
-    print('Extracting files...')
+    log('Extracting files')
     shutil.unpack_archive(TGZ_FILE_PATH)
 
 def process_data_and_save_csvs():
@@ -84,7 +103,7 @@ def process_data_and_save_csvs():
     Run through all the extracted data and put it into a more reasonable format,
     two output csvs.
     '''
-    print('Processing data...')
+    log('Processing data')
 
     # We'll start by getting a list of the sections in each file
     csvfiles = [f'{DATA_DIR}/{file}' for file in os.listdir(DATA_DIR)]
@@ -129,4 +148,6 @@ def get_fitbit_data(cache=True) -> Tuple[pd.DataFrame, pd.DataFrame]:
         download_data()
         extract_data()
         process_data_and_save_csvs()
+    else:
+        log('Reading data from local csvs')
     return pd.read_csv('Foods.csv'), pd.read_csv('Activities.csv')

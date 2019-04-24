@@ -2,3 +2,5 @@ Foods.csv
 Activities.csv
 fitbit-data.tar.gz
 fitbit/
+*.html
+docs
