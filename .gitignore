@@ -3,3 +3,4 @@ env.py
 __pycache__
 data/*
 .ipynb_checkpoints
+*.txt
