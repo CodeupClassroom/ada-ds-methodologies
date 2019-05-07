@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup
 
 urls = [
     'https://codeup.com/codeups-data-science-career-accelerator-is-here/',
-    'https://codeup.com/data-science-myths/',
     'https://codeup.com/data-science-vs-data-analytics-whats-the-difference/',
     'https://codeup.com/10-tips-to-crush-it-at-the-sa-tech-job-fair/',
     'https://codeup.com/competitor-bootcamps-are-closing-is-the-model-in-danger/',
