@@ -4,3 +4,7 @@ __pycache__
 data/*
 .ipynb_checkpoints
 *.txt
+sa311
+sa311_data_part1
+spark-warehouse
+sources_partitioned_data
