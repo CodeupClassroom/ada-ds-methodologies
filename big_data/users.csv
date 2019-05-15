@@ -1,0 +1,7 @@
+id,name,email,role_id
+1,bob,bob@example.com,1
+2,joe,joe@example.com,2
+3,sally,sally@example.com,3
+4,adam,adam@example.com,3
+5,jane,jane@example.com,NULL
+6,mike,mike@example.com,NULL
